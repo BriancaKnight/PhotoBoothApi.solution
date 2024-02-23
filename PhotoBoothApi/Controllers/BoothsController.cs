@@ -16,9 +16,15 @@ namespace PhotoBoothApi.Controllers
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Booth>>> Get()
+    public async Task<ActionResult<IEnumerable<Booth>>> Get(string neighborhood)
     {
-      return await _db.Booths.ToListAsync();
+      IQueryable<Booth> query = _db.Booths.AsQueryable();
+
+      if(neighborhood != null)
+      {
+        query = query.Where(entry => entry.Neighborhood == neighborhood);
+      }
+      return await query.ToListAsync();
     }
 
     [HttpGet("{id}")]
