@@ -41,5 +41,39 @@ namespace PhotoBoothApi.Controllers
       await _db.SaveChangesAsync();
       return CreatedAtAction(nameof(GetBooth), new { id = booth.BoothId }, booth);
     }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Put(int id, Booth booth)
+    {
+      if (id != booth.BoothId)
+      {
+        return BadRequest();
+      }
+
+      _db.Booths.Update(booth);
+
+      try
+      {
+        await _db.SaveChangesAsync();
+      }
+      catch (DbUpdateConcurrencyException)
+      {
+        if (!BoothExists(id))
+        {
+          return NotFound();
+        }
+        else
+        {
+          throw;
+        }
+      }
+
+      return NoContent();
+    }
+
+    private bool BoothExists(int id)
+    {
+      return _db.Booths.Any(e => e.BoothId == id);
+    }
   }
 }
