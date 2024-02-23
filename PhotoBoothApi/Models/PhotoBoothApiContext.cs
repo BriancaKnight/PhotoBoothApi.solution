@@ -1,8 +1,10 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace PhotoBoothApi.Models
 {
-  public class PhotoBoothApiContext : DbContext
+  public class PhotoBoothApiContext : IdentityDbContext<ApplicationUser>
   {
     public DbSet<Booth> Booths { get; set; }
 
