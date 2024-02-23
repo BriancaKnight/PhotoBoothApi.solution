@@ -33,5 +33,13 @@ namespace PhotoBoothApi.Controllers
 
       return booth;
     }
+
+    [HttpPost]
+    public async Task<ActionResult<Booth>> Post(Booth booth)
+    {
+      _db.Booths.Add(booth);
+      await _db.SaveChangesAsync();
+      return CreatedAtAction(nameof(GetBooth), new { id = booth.BoothId }, booth);
+    }
   }
 }
