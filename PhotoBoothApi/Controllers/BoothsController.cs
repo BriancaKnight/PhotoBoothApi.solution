@@ -75,5 +75,20 @@ namespace PhotoBoothApi.Controllers
     {
       return _db.Booths.Any(e => e.BoothId == id);
     }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteBooth(int id)
+    {
+      Booth booth = await _db.Booths.FindAsync(id);
+      if (booth == null)
+      {
+        return NotFound();
+      }
+
+      _db.Booths.Remove(booth);
+      await _db.SaveChangesAsync();
+
+      return NoContent();
+    }
   }
 }
