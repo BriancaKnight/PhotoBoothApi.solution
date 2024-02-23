@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PhotoBoothApi.Models;
 
@@ -10,9 +11,10 @@ using PhotoBoothApi.Models;
 namespace PhotoBoothApi.Migrations
 {
     [DbContext(typeof(PhotoBoothApiContext))]
-    partial class PhotoBoothApiContextModelSnapshot : ModelSnapshot
+    [Migration("20240223210036_AddJWT")]
+    partial class AddJWT
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -99,13 +101,14 @@ namespace PhotoBoothApi.Migrations
                     b.Property<string>("ProviderKey")
                         .HasColumnType("varchar(255)");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("varchar(255)");
-
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("longtext");
 
-                    b.HasKey("LoginProvider", "ProviderKey", "UserId");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
 
                     b.HasIndex("UserId");
 
@@ -208,6 +211,50 @@ namespace PhotoBoothApi.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "abc",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "58231629-7aee-4c72-b3b7-e6f8b2fb8f5f",
+                            Email = "me@me.me",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEKq+NmbfECSTf11asEauYmopNTqKy+jCKfEQKHQTyIgI8TnBFr9hpfeB/hcGKRTITw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "42d3e0db-d1f2-40de-a7af-ee525ae1ca14",
+                            TwoFactorEnabled = false,
+                            UserName = "Me"
+                        },
+                        new
+                        {
+                            Id = "def",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "3cd6d47f-1472-4a60-a0c4-9cda1e0d01fe",
+                            Email = "myself@myself.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEAhVYWF5wfA5UTJRGSBaLYsST8A1WmPQxHVr5AuF45fjkvMl+rKDuQ39TlxnvFGzXg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "b66050cf-8547-46e4-b89e-772326853df2",
+                            TwoFactorEnabled = false,
+                            UserName = "Myself"
+                        },
+                        new
+                        {
+                            Id = "ghi",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "e29a44f6-d61b-4c08-b554-2b81390aadeb",
+                            Email = "andi@andi.net",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEKFVjlnVaxc1Qug8flWQKrPyf9wazLYabl4I7ILpYiZLvCf+IyXA3CYTq6gTF5hZBg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "02f98997-4bb7-4457-8ac8-06b51ad3f679",
+                            TwoFactorEnabled = false,
+                            UserName = "AndI"
+                        });
                 });
 
             modelBuilder.Entity("PhotoBoothApi.Models.Booth", b =>

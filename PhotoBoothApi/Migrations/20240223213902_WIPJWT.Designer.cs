@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PhotoBoothApi.Models;
 
@@ -10,9 +11,10 @@ using PhotoBoothApi.Models;
 namespace PhotoBoothApi.Migrations
 {
     [DbContext(typeof(PhotoBoothApiContext))]
-    partial class PhotoBoothApiContextModelSnapshot : ModelSnapshot
+    [Migration("20240223213902_WIPJWT")]
+    partial class WIPJWT
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

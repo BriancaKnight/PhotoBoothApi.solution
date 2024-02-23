@@ -14,6 +14,11 @@ namespace PhotoBoothApi.Models
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+
+   base.OnModelCreating(builder);
+
+   builder.Entity<IdentityUserLogin<string>>().HasKey(l => new { l.LoginProvider, l.ProviderKey, l.UserId });
+
     builder.Entity<Booth>()
       .HasData(
         new Booth { BoothId = 1, Location = "The Florida Room", Address = "435 N Killingsworth St, Portland, OR 97217", Neighborhood = "NE", Type = "Digital", Color = "Both"},

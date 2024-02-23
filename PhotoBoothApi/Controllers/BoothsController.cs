@@ -1,11 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PhotoBoothApi.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PhotoBoothApi.Controllers
 {
   [Route("api/[controller]")]
   [ApiController]
+  // [Authorize]
   public class BoothsController : ControllerBase
   {
     private readonly PhotoBoothApiContext _db;
@@ -45,6 +47,7 @@ namespace PhotoBoothApi.Controllers
       return booth;
     }
 
+    [Authorize]
     [HttpPost]
     public async Task<ActionResult<Booth>> Post(Booth booth)
     {
@@ -53,6 +56,7 @@ namespace PhotoBoothApi.Controllers
       return CreatedAtAction(nameof(GetBooth), new { id = booth.BoothId }, booth);
     }
 
+    [Authorize]
     [HttpPut("{id}")]
     public async Task<IActionResult> Put(int id, Booth booth)
     {
@@ -87,6 +91,7 @@ namespace PhotoBoothApi.Controllers
       return _db.Booths.Any(e => e.BoothId == id);
     }
 
+    [Authorize]
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteBooth(int id)
     {
